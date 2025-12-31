@@ -44,6 +44,13 @@
   :type '(repeat string)
   :group 'lsp-pyrefly)
 
+(defcustom lsp-pyrefly-priority 1
+  "Priority for the Pyrefly LSP client.
+Higher values give Pyrefly precedence over other Python LSP clients.
+Pyright uses priority 2."
+  :type 'integer
+  :group 'lsp-pyrefly)
+
 (defun lsp-pyrefly--server-command ()
   "Return the command to start the Pyrefly language server."
   lsp-pyrefly-server-command)
@@ -52,7 +59,7 @@
  (make-lsp-client
   :new-connection (lsp-stdio-connection #'lsp-pyrefly--server-command)
   :major-modes '(python-mode python-ts-mode)
-  :priority 1
+  :priority lsp-pyrefly-priority
   :server-id 'pyrefly))
 
 (provide 'lsp-pyrefly)
