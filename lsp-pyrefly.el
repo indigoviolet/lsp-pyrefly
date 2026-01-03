@@ -51,6 +51,12 @@ Pyright uses priority 2."
   :type 'integer
   :group 'lsp-pyrefly)
 
+(defcustom lsp-pyrefly-add-on t
+  "When non-nil, register Pyrefly as an add-on server.
+This lets Pyrefly run alongside another Python LSP (see the lsp-mode FAQ)."
+  :type 'boolean
+  :group 'lsp-pyrefly)
+
 (defun lsp-pyrefly--server-command ()
   "Return the command to start the Pyrefly language server."
   lsp-pyrefly-server-command)
@@ -59,6 +65,7 @@ Pyright uses priority 2."
  (make-lsp-client
   :new-connection (lsp-stdio-connection #'lsp-pyrefly--server-command)
   :major-modes '(python-mode python-ts-mode)
+  :add-on? lsp-pyrefly-add-on
   :priority lsp-pyrefly-priority
   :server-id 'pyrefly))
 
